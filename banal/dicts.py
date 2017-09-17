@@ -1,6 +1,6 @@
 from collections import Mapping
 
-from banal.lists import is_list
+from banal.lists import is_sequence
 
 
 def is_mapping(obj):
@@ -14,6 +14,6 @@ def clean_dict(data):
             if v is None:
                 data.pop(k)
             data[k] = clean_dict(v)
-    elif is_list(data):
+    elif is_sequence(data):
         return [clean_dict(d) for d in data if d is not None]
     return data
