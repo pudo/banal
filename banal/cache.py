@@ -1,4 +1,5 @@
 import six
+import types
 from itertools import chain
 from hashlib import sha1
 from datetime import date, datetime
@@ -16,7 +17,11 @@ def bytes_iter(obj):
     elif isinstance(obj, six.binary_type):
         yield obj
     elif isinstance(obj, six.text_type):
-        yield obj.encode('utf-8')
+        yield obj
+    elif isinstance(obj, (types.FunctionType, types.BuiltinFunctionType,
+                          types.MethodType, types.BuiltinMethodType,
+                          types.UnboundMethodType)):
+        yield getattr(obj, 'func_name', '')
     elif is_mapping(obj):
         for key, value in obj.items():
             for out in chain(bytes_iter(key), bytes_iter(value)):
@@ -26,14 +31,16 @@ def bytes_iter(obj):
             for out in bytes_iter(item):
                 yield out
     elif isinstance(obj, (date, datetime)):
-        yield obj.isoformat().encode('utf-8')
+        yield obj.isoformat()
     else:
-        yield unicode(obj).encode('utf-8')
+        yield unicode(obj)
 
 
 def hash_data(obj):
     """Generate a SHA1 from a complex object."""
     collect = sha1()
     for text in bytes_iter(obj):
-        collect.update(text + '$')
+        if isinstance(obj, six.text_type):
+            text = text.encode('utf-8')
+        collect.update(text)
     return collect.hexdigest()
