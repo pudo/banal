@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='banal',
-    version='0.3.0',
+    version='0.3.1',
     description="Commons of banal micro-functions for Python.",
     long_description="",
     classifiers=[

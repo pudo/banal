@@ -13,25 +13,27 @@ def bytes_iter(obj):
     The resulting iterator can be used for caching.
     """
     if obj is None:
-        yield ''
+        return
     elif isinstance(obj, six.binary_type):
         yield obj
     elif isinstance(obj, six.text_type):
         yield obj
+    elif isinstance(obj, (date, datetime)):
+        yield obj.isoformat()
+    elif is_mapping(obj):
+        for key in sorted(obj.keys()):
+            for out in chain(bytes_iter(key), bytes_iter(obj[key])):
+                yield out
+    elif is_sequence(obj):
+        if isinstance(obj, set):
+            obj = sorted(obj)
+        for item in obj:
+            for out in bytes_iter(item):
+                yield out
     elif isinstance(obj, (types.FunctionType, types.BuiltinFunctionType,
                           types.MethodType, types.BuiltinMethodType,
                           types.UnboundMethodType)):
         yield getattr(obj, 'func_name', '')
-    elif is_mapping(obj):
-        for key, value in obj.items():
-            for out in chain(bytes_iter(key), bytes_iter(value)):
-                yield out
-    elif is_sequence(obj):
-        for item in obj:
-            for out in bytes_iter(item):
-                yield out
-    elif isinstance(obj, (date, datetime)):
-        yield obj.isoformat()
     else:
         yield unicode(obj)
 
