@@ -25,3 +25,8 @@ def ensure_list(obj):
     return obj
 
 
+def first(lst):
+    """Return the first non-null element in the list, or None."""
+    for item in ensure_list(lst):
+        if item is not None:
+            return item
