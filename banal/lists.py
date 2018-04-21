@@ -22,7 +22,7 @@ def ensure_list(obj):
         return []
     if not is_sequence(obj):
         return [obj]
-    return obj
+    return [o for o in obj]
 
 
 def first(lst):
