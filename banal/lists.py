@@ -3,8 +3,14 @@ from collections import Sequence
 
 
 def is_sequence(obj):
-    """Check if something quacks like a list."""
     return isinstance(obj, Sequence) and not isinstance(obj, six.string_types)
+
+
+def is_listish(obj):
+    """Check if something quacks like a list."""
+    if isinstance(obj, (list, tuple, set)):
+        return True
+    return is_sequence(obj)
 
 
 def unique_list(lst):
@@ -20,7 +26,7 @@ def ensure_list(obj):
     """Make the returned object a list, otherwise wrap as single item."""
     if obj is None:
         return []
-    if not is_sequence(obj):
+    if not is_listish(obj):
         return [obj]
     return [o for o in obj]
 
