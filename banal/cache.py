@@ -16,7 +16,7 @@ def bytes_iter(obj):
         return
     elif isinstance(obj, six.binary_type):
         yield obj
-    elif isinstance(obj, six.text_type):
+    elif isinstance(obj, six.string_types):
         yield obj
     elif isinstance(obj, (date, datetime)):
         yield obj.isoformat()
@@ -31,11 +31,10 @@ def bytes_iter(obj):
             for out in bytes_iter(item):
                 yield out
     elif isinstance(obj, (types.FunctionType, types.BuiltinFunctionType,
-                          types.MethodType, types.BuiltinMethodType,
-                          types.UnboundMethodType)):
+                          types.MethodType, types.BuiltinMethodType)):
         yield getattr(obj, 'func_name', '')
     else:
-        yield unicode(obj)
+        yield six.text_type(obj)
 
 
 def hash_data(obj):
