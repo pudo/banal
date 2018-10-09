@@ -7,6 +7,12 @@ def is_mapping(obj):
     return isinstance(obj, Mapping)
 
 
+def ensure_dict(obj):
+    if is_mapping(obj) or hasattr(obj, 'items'):
+        return dict(obj.items())
+    return {}
+
+
 def clean_dict(data):
     """Remove None-valued keys from a dictionary, recursively."""
     if is_mapping(data):
