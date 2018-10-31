@@ -1,6 +1,6 @@
 from collections import Mapping
 
-from banal.lists import is_sequence
+from banal.lists import is_sequence, ensure_list
 
 
 def is_mapping(obj):
@@ -24,3 +24,13 @@ def clean_dict(data):
     elif is_sequence(data):
         return [clean_dict(d) for d in data if d is not None]
     return data
+
+
+def keys_values(data, *keys):
+    """Get an entry as a list from a dict. Provide a fallback key."""
+    values = []
+    if is_mapping(data):
+        for key in keys:
+            if key in data:
+                values.extend(ensure_list(data[key]))
+    return values

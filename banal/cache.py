@@ -5,7 +5,7 @@ from hashlib import sha1
 from datetime import date, datetime
 
 from banal.dicts import is_mapping
-from banal.lists import is_sequence
+from banal.lists import is_sequence, ensure_list
 
 
 def bytes_iter(obj):
@@ -25,8 +25,11 @@ def bytes_iter(obj):
             for out in chain(bytes_iter(key), bytes_iter(obj[key])):
                 yield out
     elif is_sequence(obj):
-        if isinstance(obj, set):
-            obj = sorted(obj)
+        if isinstance(obj, (list, set)):
+            try:
+                obj = sorted(obj)
+            except Exception:
+                pass
         for item in obj:
             for out in bytes_iter(item):
                 yield out
