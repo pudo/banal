@@ -5,7 +5,7 @@ from hashlib import sha1
 from datetime import date, datetime
 
 from banal.dicts import is_mapping
-from banal.lists import is_sequence, ensure_list
+from banal.lists import is_sequence
 
 
 def bytes_iter(obj):
