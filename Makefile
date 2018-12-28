@@ -1,10 +1,7 @@
 
-all: clean dists
+all: dists
 
-build:
-	python fetch.py
-
-dists:
+dists: clean
 	python setup.py sdist bdist_wheel
 
 release: dists

@@ -10,7 +10,7 @@ Rules:
 
 ## Functions
 
-* ``is_sequence``: check if something is list-ish
+* ``is_listish``: check if something is list-ish
 * ``is_mapping``: check if an object is dict-ish
 * ``ensure_list``: make sure an argument is a list, or make it into a single-element list
 * ``clean_dict``: remove null values from a dict, recursively

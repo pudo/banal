@@ -1,4 +1,4 @@
-from collections import Mapping
+from collections.abc import Mapping
 
 from banal.lists import is_sequence, ensure_list
 

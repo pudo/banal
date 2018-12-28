@@ -1,5 +1,5 @@
 import six
-from collections import Sequence
+from collections.abc import Sequence
 
 
 def is_sequence(obj):
