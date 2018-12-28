@@ -1,5 +1,8 @@
 import six
-from collections.abc import Sequence
+try:
+    from collections.abc import Sequence
+except ImportError:
+    from collections import Sequence
 
 
 def is_sequence(obj):
