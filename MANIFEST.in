@@ -1,1 +1,3 @@
 include README.md LICENSE
+include MANIFEST.in
+include banal/py.typed

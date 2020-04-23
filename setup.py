@@ -1,5 +1,4 @@
-from setuptools import setup, find_packages  # type: ignore
-
+from setuptools import setup  # type: ignore
 
 setup(
     name='banal',
@@ -18,17 +17,14 @@ setup(
     author_email='friedrich@pudo.org',
     url='http://github.com/pudo/banal',
     license='MIT',
-    packages=find_packages(exclude=['ez_setup', 'examples', 'test']),
     namespace_packages=[],
-    package_data={},
+    package_data={'banal': ['py.typed']},
+    packages=['banal'],
     include_package_data=True,
     zip_safe=False,
-    test_suite='nose.collector',
     install_requires=[],
     tests_require=[
-        'nose',
         'mypy',
-        'coverage',
         'wheel'
     ],
     entry_points={}
