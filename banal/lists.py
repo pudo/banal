@@ -1,12 +1,9 @@
-import six
-try:
-    from collections.abc import Sequence
-except ImportError:
-    from collections import Sequence
+from typing import List, Any
+from collections.abc import Sequence
 
 
-def is_sequence(obj):
-    return isinstance(obj, Sequence) and not isinstance(obj, six.string_types)
+def is_sequence(obj: Any) -> bool:
+    return isinstance(obj, Sequence) and not isinstance(obj, (str, bytes))
 
 
 def is_listish(obj):
@@ -16,7 +13,7 @@ def is_listish(obj):
     return is_sequence(obj)
 
 
-def unique_list(lst):
+def unique_list(lst: Sequence) -> List:
     """Make a list unique, retaining order of initial appearance."""
     uniq = []
     for item in lst:
@@ -25,7 +22,7 @@ def unique_list(lst):
     return uniq
 
 
-def ensure_list(obj):
+def ensure_list(obj: Any) -> List:
     """Make the returned object a list, otherwise wrap as single item."""
     if obj is None:
         return []
@@ -34,7 +31,7 @@ def ensure_list(obj):
     return [o for o in obj]
 
 
-def first(lst):
+def first(lst: Sequence) -> Any:
     """Return the first non-null element in the list, or None."""
     for item in ensure_list(lst):
         if item is not None:

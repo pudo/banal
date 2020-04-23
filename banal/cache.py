@@ -1,25 +1,29 @@
-import six
 import types
-from itertools import chain
 from hashlib import sha1
+from itertools import chain
+from typing import Any, Union, Iterable
 from datetime import date, datetime
 
 from banal.dicts import is_mapping
 from banal.lists import is_sequence
 
 
-def bytes_iter(obj):
+def _bytes_str(obj: Union[str, bytes]) -> bytes:
+    if not isinstance(obj, str):
+        return obj
+    return obj.encode('utf-8')
+
+
+def bytes_iter(obj) -> Iterable[bytes]:
     """Turn a complex object into an iterator of byte strings.
     The resulting iterator can be used for caching.
     """
     if obj is None:
         return
-    elif isinstance(obj, six.binary_type):
-        yield obj
-    elif isinstance(obj, six.string_types):
-        yield obj
+    elif isinstance(obj, (bytes, str)):
+        yield _bytes_str(obj)
     elif isinstance(obj, (date, datetime)):
-        yield obj.isoformat()
+        yield _bytes_str(obj.isoformat())
     elif is_mapping(obj):
         for key in sorted(obj.keys()):
             for out in chain(bytes_iter(key), bytes_iter(obj[key])):
@@ -35,16 +39,14 @@ def bytes_iter(obj):
                 yield out
     elif isinstance(obj, (types.FunctionType, types.BuiltinFunctionType,
                           types.MethodType, types.BuiltinMethodType)):
-        yield getattr(obj, 'func_name', '')
+        yield _bytes_str(getattr(obj, 'func_name', ''))
     else:
-        yield six.text_type(obj)
+        yield _bytes_str(str(obj))
 
 
-def hash_data(obj):
+def hash_data(obj: Any) -> str:
     """Generate a SHA1 from a complex object."""
     collect = sha1()
-    for text in bytes_iter(obj):
-        if isinstance(text, six.text_type):
-            text = text.encode('utf-8')
-        collect.update(text)
+    for data in bytes_iter(obj):
+        collect.update(data)
     return collect.hexdigest()

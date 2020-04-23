@@ -1,18 +1,15 @@
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages  # type: ignore
 
 
 setup(
     name='banal',
     version='0.4.2',
-    description="Commons of banal micro-functions for Python.",
-    long_description="",
+    description='Commons of banal micro-functions for Python.',
+    long_description='',
     classifiers=[
-        "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
@@ -27,9 +24,10 @@ setup(
     include_package_data=True,
     zip_safe=False,
     test_suite='nose.collector',
-    install_requires=['six'],
+    install_requires=[],
     tests_require=[
         'nose',
+        'mypy',
         'coverage',
         'wheel'
     ],
