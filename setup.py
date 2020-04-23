@@ -3,7 +3,7 @@ from setuptools import setup, find_packages  # type: ignore
 
 setup(
     name='banal',
-    version='0.4.2',
+    version='1.0.0',
     description='Commons of banal micro-functions for Python.',
     long_description='',
     classifiers=[
