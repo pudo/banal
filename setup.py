@@ -11,6 +11,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
     ],
     keywords='utilities commons functions',
     author='Friedrich Lindenberg',
@@ -23,9 +25,10 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[],
-    tests_require=[
-        'mypy',
-        'wheel'
-    ],
-    entry_points={}
+    extras_require={
+        'dev': [
+            'mypy',
+            'wheel',
+        ]
+    },
 )
