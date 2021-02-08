@@ -9,7 +9,7 @@ def is_mapping(obj: Any) -> bool:
 
 
 def ensure_dict(obj: Any) -> Dict:
-    if is_mapping(obj) or hasattr(obj, 'items'):
+    if is_mapping(obj) or hasattr(obj, "items"):
         return dict(obj.items())
     return {}
 

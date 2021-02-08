@@ -1,6 +1,6 @@
 from typing import Any
 
-BOOL_TRUEISH = ['1', 'yes', 'y', 't', 'true', 'on', 'enabled']
+BOOL_TRUEISH = ["1", "yes", "y", "t", "true", "on", "enabled"]
 
 
 def as_bool(value: Any, default: bool = False) -> bool:

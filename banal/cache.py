@@ -11,7 +11,7 @@ from banal.lists import is_sequence
 def _bytes_str(obj: Union[str, bytes]) -> bytes:
     if not isinstance(obj, str):
         return obj
-    return obj.encode('utf-8')
+    return obj.encode("utf-8")
 
 
 def bytes_iter(obj) -> Iterable[bytes]:
@@ -37,9 +37,16 @@ def bytes_iter(obj) -> Iterable[bytes]:
         for item in obj:
             for out in bytes_iter(item):
                 yield out
-    elif isinstance(obj, (types.FunctionType, types.BuiltinFunctionType,
-                          types.MethodType, types.BuiltinMethodType)):
-        yield _bytes_str(getattr(obj, 'func_name', ''))
+    elif isinstance(
+        obj,
+        (
+            types.FunctionType,
+            types.BuiltinFunctionType,
+            types.MethodType,
+            types.BuiltinMethodType,
+        ),
+    ):
+        yield _bytes_str(getattr(obj, "func_name", ""))
     else:
         yield _bytes_str(str(obj))
 

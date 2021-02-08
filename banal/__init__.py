@@ -8,16 +8,16 @@ from banal.cache import hash_data
 from banal.bools import as_bool
 
 __all__ = [
-    'is_sequence',
-    'is_listish',
-    'ensure_list',
-    'unique_list',
-    'first',
-    'as_bool',
-    'is_mapping',
-    'clean_dict',
-    'ensure_dict',
-    'keys_values',
-    'decode_path',
-    'hash_data'
+    "is_sequence",
+    "is_listish",
+    "ensure_list",
+    "unique_list",
+    "first",
+    "as_bool",
+    "is_mapping",
+    "clean_dict",
+    "ensure_dict",
+    "keys_values",
+    "decode_path",
+    "hash_data",
 ]
