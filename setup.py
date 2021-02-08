@@ -2,7 +2,7 @@ from setuptools import setup  # type: ignore
 
 setup(
     name="banal",
-    version="1.0.1",
+    version="1.0.2",
     description="Commons of banal micro-functions for Python.",
     long_description="",
     classifiers=[
