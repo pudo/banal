@@ -1,5 +1,7 @@
-from typing import List, Any
-from collections.abc import Sequence
+from typing import List, Set, Any, TypeVar, Generator
+from collections.abc import Sequence, Iterable
+
+T = TypeVar("T")
 
 
 def is_sequence(obj: Any) -> bool:
@@ -29,6 +31,34 @@ def ensure_list(obj: Any) -> List:
     if not is_listish(obj):
         return [obj]
     return [o for o in obj]
+
+
+def chunked_iter(
+    iterable: Iterable[T], batch_size: int = 500
+) -> Generator[List[T], None, None]:
+    """Pick `batch_size` items from an iterable and treat them as a batch list."""
+    batch = list()
+    for item in iterable:
+        batch.append(item)
+        if len(batch) >= batch_size:
+            yield batch
+            batch = list()
+    if len(batch) > 0:
+        yield batch
+
+
+def chunked_iter_sets(
+    iterable: Iterable[T], batch_size: int = 500
+) -> Generator[Set[T], None, None]:
+    """Pick `batch_size` items from an iterable and treat them as a batch set."""
+    batch = set()
+    for item in iterable:
+        batch.add(item)
+        if len(batch) >= batch_size:
+            yield batch
+            batch = set()
+    if len(batch) > 0:
+        yield batch
 
 
 def first(lst: Sequence) -> Any:

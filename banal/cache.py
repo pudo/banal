@@ -25,6 +25,8 @@ def bytes_iter(obj) -> Iterable[bytes]:
     elif isinstance(obj, (date, datetime)):
         yield _bytes_str(obj.isoformat())
     elif is_mapping(obj):
+        if None in obj:
+            yield from bytes_iter(obj.pop(None))
         for key in sorted(obj.keys()):
             for out in chain(bytes_iter(key), bytes_iter(obj[key])):
                 yield out
