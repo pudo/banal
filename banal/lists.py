@@ -1,5 +1,4 @@
-from typing import List, Set, Any, TypeVar, Generator
-from collections.abc import Sequence, Iterable
+from typing import List, Set, Any, TypeVar, Generator, Sequence, Iterable
 
 T = TypeVar("T")
 
