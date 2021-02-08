@@ -1,10 +1,15 @@
 from setuptools import setup  # type: ignore
 
+with open("README.md") as f:
+    long_description = f.read()
+
+
 setup(
     name="banal",
     version="1.0.3",
     description="Commons of banal micro-functions for Python.",
-    long_description="",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",

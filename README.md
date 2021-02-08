@@ -1,11 +1,12 @@
 # banal
 
 Commons of Python micro-functions. This basically an out-sourced, shared
-utils module.
+utils module with a focus on functions that buffer type uncertainties in
+Python (e.g. "is this a list?").
 
 Rules:
 
-* Must work in Python 2 and Python 3
+* Functions are properly typed, library passes `mypy`.
 * Cannot depend on anything but six and the standard library
 
 ## Functions
