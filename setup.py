@@ -6,7 +6,7 @@ with open("README.md") as f:
 
 setup(
     name="banal",
-    version="1.0.4",
+    version="1.0.5",
     description="Commons of banal micro-functions for Python.",
     long_description=long_description,
     long_description_content_type="text/markdown",
