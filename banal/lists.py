@@ -1,4 +1,4 @@
-from typing import Optional, List, Set, Any, TypeVar
+from typing import cast, overload, Optional, List, Set, Any, TypeVar
 from typing import Generator, Sequence, Iterable
 
 T = TypeVar("T")
@@ -24,13 +24,28 @@ def unique_list(lst: Sequence[T]) -> List[T]:
     return uniq
 
 
+@overload
+def ensure_list(obj: None) -> List[None]:
+    pass
+
+
+@overload
+def ensure_list(obj: Iterable[T]) -> List[T]:
+    pass
+
+
+@overload
+def ensure_list(obj: T) -> List[T]:
+    pass
+
+
 def ensure_list(obj: Any) -> List[T]:
     """Make the returned object a list, otherwise wrap as single item."""
     if obj is None:
         return []
     if is_listish(obj):
-        return [o for o in obj]
-    return [obj]
+        return [o for o in cast(Sequence[T], obj)]
+    return [cast(T, obj)]
 
 
 def chunked_iter(
