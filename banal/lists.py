@@ -1,4 +1,5 @@
-from typing import List, Set, Any, TypeVar, Generator, Sequence, Iterable
+from typing import Optional, List, Set, Any, TypeVar
+from typing import Generator, Sequence, Iterable
 
 T = TypeVar("T")
 
@@ -7,14 +8,14 @@ def is_sequence(obj: Any) -> bool:
     return isinstance(obj, Sequence) and not isinstance(obj, (str, bytes))
 
 
-def is_listish(obj):
+def is_listish(obj: Any) -> bool:
     """Check if something quacks like a list."""
     if isinstance(obj, (list, tuple, set)):
         return True
     return is_sequence(obj)
 
 
-def unique_list(lst: Sequence) -> List:
+def unique_list(lst: Sequence[T]) -> List[T]:
     """Make a list unique, retaining order of initial appearance."""
     uniq = []
     for item in lst:
@@ -23,13 +24,13 @@ def unique_list(lst: Sequence) -> List:
     return uniq
 
 
-def ensure_list(obj: Any) -> List:
+def ensure_list(obj: Any) -> List[T]:
     """Make the returned object a list, otherwise wrap as single item."""
     if obj is None:
         return []
-    if not is_listish(obj):
-        return [obj]
-    return [o for o in obj]
+    if is_listish(obj):
+        return [o for o in obj]
+    return [obj]
 
 
 def chunked_iter(
@@ -60,8 +61,10 @@ def chunked_iter_sets(
         yield batch
 
 
-def first(lst: Sequence) -> Any:
+def first(lst: Sequence[T]) -> Optional[T]:
     """Return the first non-null element in the list, or None."""
+    item: T
     for item in ensure_list(lst):
         if item is not None:
             return item
+    return None

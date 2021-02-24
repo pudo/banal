@@ -14,7 +14,7 @@ def _bytes_str(obj: Union[str, bytes]) -> bytes:
     return obj.encode("utf-8")
 
 
-def bytes_iter(obj) -> Iterable[bytes]:
+def bytes_iter(obj: Any) -> Iterable[bytes]:
     """Turn a complex object into an iterator of byte strings.
     The resulting iterator can be used for caching.
     """

@@ -21,7 +21,7 @@ jobs:
         pip install -e '.[dev]'
     - name: Validate typing
       run: |
-        mypy .
+        mypy --strict .
     - name: Build a distribution
       run: |
         python setup.py sdist bdist_wheel
