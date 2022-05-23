@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "banal"
+authors = [{name = "Friedrich Lindenberg", email = "friedrich@pudo.org"}]
+license = {text = "MIT"}
+description = "Commons of banal micro-functions for Python."
+keywords = ["utilities", "commons", "functions"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+]
+urls = {Homepage = "http://github.com/pudo/banal"}
+dependencies = []
+dynamic = ["version"]
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.optional-dependencies]
+dev = ["mypy", "wheel"]
+
+[tool.setuptools]
+packages = ["banal"]
+zip-safe = false
+include-package-data = true
+namespace-packages = []
+
+[tool.setuptools.package-data]
+banal = ["py.typed"]
+
+[tool.setuptools_scm]
+
+[tool.distutils.bdist_wheel]
+universal = 1
