@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.2.0", "wheel", "setuptools_scm[toml]>=3.4.3"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,7 @@ name = "banal"
 authors = [{name = "Friedrich Lindenberg", email = "friedrich@pudo.org"}]
 license = {text = "MIT"}
 description = "Commons of banal micro-functions for Python."
+readme = "README.md"
 keywords = ["utilities", "commons", "functions"]
 classifiers = [
     "Intended Audience :: Developers",
@@ -20,10 +21,6 @@ classifiers = [
 urls = {Homepage = "http://github.com/pudo/banal"}
 dependencies = []
 dynamic = ["version"]
-
-[project.readme]
-file = "README.md"
-content-type = "text/markdown"
 
 [project.optional-dependencies]
 dev = ["mypy", "wheel"]
