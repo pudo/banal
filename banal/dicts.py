@@ -1,4 +1,14 @@
-from typing import Any, Dict, List, TypeVar
+from typing import (
+    Any,
+    Dict,
+    List,
+    Tuple,
+    TypeVar,
+    Union,
+    Mapping as TMapping,
+    Iterable,
+    Iterator,
+)
 from collections.abc import Mapping
 
 from banal.lists import is_sequence, ensure_list
@@ -38,3 +48,10 @@ def keys_values(data: Dict[K, V], *keys: K) -> List[V]:
             if key in data:
                 values.extend(ensure_list(data[key]))
     return values
+
+
+def items(data: Union[TMapping, Iterable]) -> Iterator[Tuple[Any, Any]]:
+    if is_mapping(data):
+        return data.items()
+    else:
+        return enumerate(data)
