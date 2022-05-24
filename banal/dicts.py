@@ -8,6 +8,7 @@ from typing import (
     Mapping as TMapping,
     Iterable,
     Iterator,
+    Sequence
 )
 from collections.abc import Mapping
 
@@ -55,3 +56,17 @@ def items(data: Union[TMapping, Iterable]) -> Iterator[Tuple[Any, Any]]:
         return data.items()
     else:
         return enumerate(data)
+
+
+def keys(data: Union[TMapping, Sequence]) -> Iterator[Any]:
+    if is_mapping(data):
+        return data.keys()
+    else:
+        return range(len(data))
+
+
+def values(data: Union[TMapping, Iterable]) -> Iterator[Any]:
+    if is_mapping(data):
+        return data.values()
+    else:
+        return data
