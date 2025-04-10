@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "banal"
+version = "1.0.6"
+description = "Commons of banal micro-functions for Python."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Friedrich Lindenberg", email = "friedrich@pudo.org" }]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+keywords = ["utilities", "commons", "functions"]
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "http://github.com/pudo/banal"
+
+[project.optional-dependencies]
+dev = ["mypy", "wheel"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["banal"]

@@ -7,7 +7,7 @@ Python (e.g. "is this a list?").
 Rules:
 
 * Functions are properly typed, library passes `mypy`.
-* Cannot depend on anything but six and the standard library
+* Cannot depend on anything but the standard library
 
 ## Functions
 
