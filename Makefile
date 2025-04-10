@@ -4,8 +4,8 @@ all: dists
 dists: clean
 	python setup.py sdist bdist_wheel
 
-release: dists
-	twine upload dist/*
+typecheck:
+	mypy --strict banal
 
 clean:
 	rm -rf dist build .eggs

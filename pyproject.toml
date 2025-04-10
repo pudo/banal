@@ -26,7 +26,7 @@ requires-python = ">=3.9"
 Homepage = "http://github.com/pudo/banal"
 
 [project.optional-dependencies]
-dev = ["mypy", "wheel"]
+dev = ["mypy", "build", "wheel"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["banal"]
