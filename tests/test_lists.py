@@ -94,6 +94,22 @@ def test_is_listish_range():
     assert is_listish(range(5)) is True
 
 
+def test_is_listish_frozenset():
+    assert is_listish(frozenset({1, 2})) is True
+
+
+def test_is_listish_dict_keys():
+    assert is_listish({"a": 1, "b": 2}.keys()) is True
+
+
+def test_is_listish_dict_values():
+    assert is_listish({"a": 1, "b": 2}.values()) is True
+
+
+def test_is_listish_dict_items():
+    assert is_listish({"a": 1}.items()) is True
+
+
 def test_is_listish_empty_list():
     assert is_listish([]) is True
 
@@ -157,6 +173,21 @@ def test_ensure_list_zero():
 
 def test_ensure_list_empty_string():
     assert ensure_list("") == [""]
+
+
+def test_ensure_list_frozenset():
+    result = ensure_list(frozenset({1}))
+    assert result == [1]
+
+
+def test_ensure_list_dict_keys():
+    result = ensure_list({"a": 1, "b": 2}.keys())
+    assert set(result) == {"a", "b"}
+
+
+def test_ensure_list_dict_values():
+    result = ensure_list({"a": 1, "b": 2}.values())
+    assert set(result) == {1, 2}
 
 
 # unique_list

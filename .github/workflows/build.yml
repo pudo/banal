@@ -24,6 +24,9 @@ jobs:
     - name: Validate typing
       run: |
         mypy --strict .
+    - name: Run tests
+      run: |
+        pytest tests/
     - name: Build a distribution
       run: |
         python3 -m build --wheel
