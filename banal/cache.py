@@ -1,28 +1,28 @@
 from hashlib import sha1
 from itertools import chain
-from typing import Any, Union, Iterable
+from typing import Any, Iterable
 from datetime import date, datetime
 
 from banal.dicts import is_mapping
 from banal.lists import is_sequence
 
-
-def _bytes_str(obj: Union[str, bytes]) -> bytes:
-    if not isinstance(obj, str):
-        return obj
-    return obj.encode("utf-8")
+HASH_ENCODING = "utf-8"
 
 
 def bytes_iter(obj: Any) -> Iterable[bytes]:
-    """Turn a complex object into an iterator of byte strings.
-    The resulting iterator can be used for caching.
-    """
+    """Recursively decompose an object into an iterator of byte strings.
+
+    Handles None (yields nothing), str, bytes, date/datetime, mappings
+    (sorted by key), sequences (sorted when possible), callables (by __name__),
+    and falls back to str() for everything else."""
     if obj is None:
         return
-    elif isinstance(obj, (bytes, str)):
-        yield _bytes_str(obj)
+    elif isinstance(obj, bytes):
+        yield obj
+    elif isinstance(obj, str):
+        yield obj.encode(HASH_ENCODING)
     elif isinstance(obj, (date, datetime)):
-        yield _bytes_str(obj.isoformat())
+        yield obj.isoformat().encode(HASH_ENCODING)
     elif is_mapping(obj):
         if None in obj:
             yield from bytes_iter(obj[None])
@@ -39,13 +39,16 @@ def bytes_iter(obj: Any) -> Iterable[bytes]:
             for out in bytes_iter(item):
                 yield out
     elif hasattr(obj, "__name__"):
-        yield _bytes_str(obj.__name__)
+        yield obj.__name__.encode(HASH_ENCODING)
     else:
-        yield _bytes_str(str(obj))
+        yield str(obj).encode(HASH_ENCODING)
 
 
 def hash_data(obj: Any) -> str:
-    """Generate a SHA1 from a complex object."""
+    """Generate a deterministic SHA1 hex digest from a complex object.
+
+    Key order in mappings and element order in sortable sequences are
+    normalized, so structurally equivalent objects produce the same hash."""
     collect = sha1()
     for data in bytes_iter(obj):
         collect.update(data)
