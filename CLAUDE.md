@@ -28,7 +28,7 @@ This library is called in tight inner loops across many downstream projects. Eve
 
 - **No external dependencies.** Only Python standard library imports.
 - **Strict mypy typing.** All code must pass `mypy --strict`.
-- **Python 3.9+** compatibility required.
+- **Python 3.10+** compatibility required.
 
 ## Release
 
