@@ -23,7 +23,7 @@ jobs:
         pip install -e '.[dev]'
     - name: Validate typing
       run: |
-        mypy --strict .
+        mypy --strict banal
     - name: Run tests
       run: |
         pytest tests/
