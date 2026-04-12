@@ -9,7 +9,8 @@ def is_sequence(obj: Any) -> bool:
 
 
 def is_listish(obj: Any) -> bool:
-    """Check if something quacks like a list."""
+    """Check if something is an iterable collection of items (not a string,
+    bytes, or mapping)."""
     if isinstance(obj, (list, tuple, set)):
         return True
     return is_sequence(obj)
@@ -25,7 +26,7 @@ def unique_list(lst: Sequence[T]) -> List[T]:
 
 
 @overload
-def ensure_list(obj: None) -> List[None]:
+def ensure_list(obj: None) -> List[Any]:
     pass
 
 
@@ -52,6 +53,8 @@ def chunked_iter(
     iterable: Iterable[T], batch_size: int = 500
 ) -> Generator[List[T], None, None]:
     """Pick `batch_size` items from an iterable and treat them as a batch list."""
+    if batch_size < 1:
+        raise ValueError("batch_size must be at least 1")
     batch = list()
     for item in iterable:
         batch.append(item)
@@ -66,6 +69,8 @@ def chunked_iter_sets(
     iterable: Iterable[T], batch_size: int = 500
 ) -> Generator[Set[T], None, None]:
     """Pick `batch_size` items from an iterable and treat them as a batch set."""
+    if batch_size < 1:
+        raise ValueError("batch_size must be at least 1")
     batch = set()
     for item in iterable:
         batch.add(item)

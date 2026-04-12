@@ -1,4 +1,3 @@
-import types
 from hashlib import sha1
 from itertools import chain
 from typing import Any, Union, Iterable
@@ -26,8 +25,8 @@ def bytes_iter(obj: Any) -> Iterable[bytes]:
         yield _bytes_str(obj.isoformat())
     elif is_mapping(obj):
         if None in obj:
-            yield from bytes_iter(obj.pop(None))
-        for key in sorted(obj.keys()):
+            yield from bytes_iter(obj[None])
+        for key in sorted(k for k in obj.keys() if k is not None):
             for out in chain(bytes_iter(key), bytes_iter(obj[key])):
                 yield out
     elif is_sequence(obj):
@@ -39,16 +38,8 @@ def bytes_iter(obj: Any) -> Iterable[bytes]:
         for item in obj:
             for out in bytes_iter(item):
                 yield out
-    elif isinstance(
-        obj,
-        (
-            types.FunctionType,
-            types.BuiltinFunctionType,
-            types.MethodType,
-            types.BuiltinMethodType,
-        ),
-    ):
-        yield _bytes_str(getattr(obj, "func_name", ""))
+    elif hasattr(obj, "__name__"):
+        yield _bytes_str(obj.__name__)
     else:
         yield _bytes_str(str(obj))
 
