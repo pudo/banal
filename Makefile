@@ -1,11 +1,13 @@
 
-all: dists
+all: check
 
-dists: clean
-	python setup.py sdist bdist_wheel
+test:
+	pytest -v tests
 
 typecheck:
 	mypy --strict banal
+
+check: typecheck test
 
 clean:
 	rm -rf dist build .eggs

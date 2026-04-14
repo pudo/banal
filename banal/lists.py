@@ -1,5 +1,6 @@
 from typing import overload, Optional, Union, List, Set, FrozenSet, Tuple, Any
 from typing import TypeVar, Generator, Sequence, Iterable, TypeGuard
+from typing_extensions import Never
 from collections.abc import MappingView
 
 T = TypeVar("T")
@@ -39,7 +40,17 @@ def unique_list(lst: Iterable[T]) -> List[T]:
 
 
 @overload
-def ensure_list(obj: None) -> List[Any]:
+def ensure_list(obj: None) -> List[Never]:
+    pass
+
+
+@overload
+def ensure_list(obj: str) -> List[str]:
+    pass
+
+
+@overload
+def ensure_list(obj: bytes) -> List[bytes]:
     pass
 
 
@@ -64,7 +75,7 @@ def ensure_list(obj: FrozenSet[T]) -> List[T]:
 
 
 @overload
-def ensure_list(obj: Sequence[T]) -> List[T]:
+def ensure_list(obj: Iterable[str]) -> List[str]:
     pass
 
 
@@ -77,7 +88,7 @@ def ensure_list(obj: Any) -> List[Any]:
     """Normalize uncertain input into a list.
 
     None returns []. Collections (list, tuple, set, frozenset, dict views,
-    Sequence types) are converted to a list. Strings, bytes, dicts, and
+    etc.) are converted to a list. Strings, bytes, dicts, and
     all other values are wrapped as a single-element list."""
     if obj is None:
         return []
