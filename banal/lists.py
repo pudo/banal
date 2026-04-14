@@ -75,11 +75,6 @@ def ensure_list(obj: FrozenSet[T]) -> List[T]:
 
 
 @overload
-def ensure_list(obj: Iterable[str]) -> List[str]:
-    pass
-
-
-@overload
 def ensure_list(obj: T) -> List[T]:
     pass
 
