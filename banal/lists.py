@@ -1,7 +1,6 @@
 from typing import overload, Optional, Union, List, Set, FrozenSet, Tuple, Any
 from typing import TypeVar, Generator, Sequence, Iterable, TypeGuard
-from typing_extensions import Never
-from collections.abc import MappingView
+from collections.abc import MappingView, Mapping
 
 T = TypeVar("T")
 
@@ -40,11 +39,6 @@ def unique_list(lst: Iterable[T]) -> List[T]:
 
 
 @overload
-def ensure_list(obj: None) -> List[Never]:
-    pass
-
-
-@overload
 def ensure_list(obj: str) -> List[str]:
     pass
 
@@ -75,6 +69,11 @@ def ensure_list(obj: FrozenSet[T]) -> List[T]:
 
 
 @overload
+def ensure_list(obj: Iterable[T]) -> List[T]:
+    pass
+
+
+@overload
 def ensure_list(obj: T) -> List[T]:
     pass
 
@@ -87,7 +86,7 @@ def ensure_list(obj: Any) -> List[Any]:
     all other values are wrapped as a single-element list."""
     if obj is None:
         return []
-    if is_listish(obj):
+    if isinstance(obj, Iterable) and not isinstance(obj, (str, bytes, Mapping)):
         return list(obj)
     return [obj]
 
