@@ -193,6 +193,17 @@ def test_ensure_list_dict_values():
 # unique_list
 
 
+@pytest.mark.parametrize("items", [
+    [[1], 2, [1]],
+    [1, [2], 3, [2], 1],
+    [1, 2, {"a": 3}],
+])
+def test_unique_list_unhashable_iterator(items):
+    expected = unique_list(items)
+    assert unique_list(iter(items)) == expected
+    assert unique_list(item for item in items) == expected
+
+
 def test_unique_list_duplicates():
     assert unique_list([1, 2, 2, 3, 1]) == [1, 2, 3]
 

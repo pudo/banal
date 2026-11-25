@@ -27,6 +27,9 @@ def unique_list(lst: Iterable[T]) -> List[T]:
 
     Uses dict.fromkeys for hashable items (O(n)). Falls back to a linear
     scan for unhashable items like lists or dicts."""
+    # The fallback must be able to revisit items consumed by dict.fromkeys.
+    if not isinstance(lst, Sequence):
+        lst = list(lst)
     try:
         return list(dict.fromkeys(lst))
     except TypeError:
