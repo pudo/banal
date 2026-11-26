@@ -7,5 +7,7 @@ def decode_path(file_path: Optional[str]) -> Optional[str]:
     if file_path is None:
         return None
     if isinstance(file_path, bytes):
-        file_path = file_path.decode(sys.getfilesystemencoding())
+        file_path = file_path.decode(
+            sys.getfilesystemencoding(), sys.getfilesystemencodeerrors()
+        )
     return file_path
